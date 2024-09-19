@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Do You Love Me?</title>
+    
     <style>
         body {
             display: flex;
@@ -60,20 +61,21 @@
         #noButton:active {
             box-shadow: none;
         }
-
+ 
     </style>
 </head>
 <body>
 
     <h1>Do you love me?</h1>
-    
+    <h2>
+    <p> Himmat hai to No kr k dekhao </p>
     <button id="yesButton">Yes</button>
     <button id="noButton">No</button>
 
     <script>
         // Action when "Yes" is clicked
         document.getElementById("yesButton").addEventListener("click", function() {
-            alert("I love you too! 🙈🙈");
+            alert("I love you too!");
         });
 
         // Function to move the "No" button to a random position when hovered, without overlapping the "Yes" button
