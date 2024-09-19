@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f8b500, #fceabb);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        button {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 40px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        #yesButton {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #yesButton:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        #noButton {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+
+        #noButton:hover {
+            background-color: #c82333;
+            transform: scale(1.1);
+        }
+
+        #noButton:active {
+            box-shadow: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Do you love me?</h1>
+    
+    <button id="yesButton">Yes</button>
+    <button id="noButton">No</button>
+
+    <script>
+        // Action when "Yes" is clicked
+        document.getElementById("yesButton").addEventListener("click", function() {
+            alert("I love you too!");
+        });
+
+        // Function to move the "No" button to a random position when hovered, without overlapping the "Yes" button
+        document.getElementById("noButton").addEventListener("mouseover", function() {
+            const buttonNo = document.getElementById("noButton");
+            const buttonYes = document.getElementById("yesButton");
+
+            let randomX, randomY;
+
+            do {
+                randomX = Math.random() * (window.innerWidth - buttonNo.offsetWidth);
+                randomY = Math.random() * (window.innerHeight - buttonNo.offsetHeight);
+            } while (isOverlapping(randomX, randomY, buttonNo, buttonYes));
+
+            buttonNo.style.left = randomX + "px";
+            buttonNo.style.top = randomY + "px";
+        });
+
+        // Function to check if the "No" button would overlap with the "Yes" button
+        function isOverlapping(x, y, buttonNo, buttonYes) {
+            const noRect = {
+                left: x,
+                top: y,
+                right: x + buttonNo.offsetWidth,
+                bottom: y + buttonNo.offsetHeight
+            };
+
+            const yesRect = buttonYes.getBoundingClientRect();
+
+            const isOverlap = !(noRect.right < yesRect.left || 
+                                noRect.left > yesRect.right || 
+                                noRect.bottom < yesRect.top || 
+                                noRect.top > yesRect.bottom);
+            return isOverlap;
+        }
+    </script>
+
+</body>
+</html>
