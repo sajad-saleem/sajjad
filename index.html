@@ -22,6 +22,12 @@
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
+        h2 {
+            font-size: 2rem;
+            font-family:times;
+            color: red;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        }
         button {
             padding: 15px 40px;
             font-size: 1.5rem;
@@ -67,13 +73,13 @@
 <body>
 
     <h1>knock knock ?</h1>
-    <button id="yesButton">Han das</button>
-    <button id="noButton">Tur ja</button>
+    <h2>Ap k liye aik Surprise hai</h2>
+    <button id="yesButton">click here</button>
     <script>
         // Action when "Yes" is clicked
         document.getElementById("yesButton").addEventListener("click", function() {
             document.write("Ullu banaya bara maza aya");
-        });
+        })
         // Function to move the "No" button to a random position when hovered, without overlapping the "Yes" button
         document.getElementById("noButton").addEventListener("mouseover", function() {
             const buttonNo = document.getElementById("noButton");
