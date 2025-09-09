@@ -1,120 +1,143 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise</title>
-    
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #f8b500, #fceabb);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Do you love me</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg,#f8b500,#fceabb);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
 
-        h1 {
-            font-size: 3rem;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        h2 {
-            font-size: 1.5rem;
-            font-family:times;
-            justify:center;
-            color: red;
-        }
-        button {
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 40px;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
+    h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
+    }
+    h2 {
+      font-size: 1.2rem;
+      color: #b71c1c;
+      font-family: Times, serif;
+      margin: 8px 0 20px;
+    }
 
-        button:focus {
-            outline: none;
-        }
+    .btn-wrap {
+      position: relative;
+      display: inline-block;
+      padding: 8px;
+    }
 
-        #yesButton {
-            background-color: #28a745;
-            color: white;
-        }
+    button {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.18);
+      transition: transform .15s ease, background-color .25s ease;
+      user-select: none;
+    }
 
-        #yesButton:hover {
-            background-color: #218838;
-            transform: scale(1.1);
-        }
+    #yesButton {
+      background: #28a745;
+      color: white;
+      z-index: 2;
+    }
+    #yesButton:hover { transform: scale(1.05); background:#218838; }
 
-        #noButton {
-            background-color: #dc3545;
-            color: white;
-            position: absolute;
-        }
-
-        #noButton:hover {
-            background-color: #c82333;
-            transform: scale(1.1);
-        }
-
-        #noButton:active {
-            box-shadow: none;
-        }
- 
-    </style>
+    #noButton {
+      background: #dc3545;
+      color: white;
+      position: absolute;
+      left: calc(100% + 14px);
+      top: 50%;
+      transform: translateY(-50%);
+      transition: left .4s ease, top .4s ease;
+      z-index: 1;
+    }
+    #noButton:hover { background:#c82333; }
+  </style>
 </head>
 <body>
 
-    <h1>knock knock ?</h1>
-    <h2>Ap k liye aik Surprise hai</h2>
-    <button id="yesButton">click here</button>
-    <button id="noButton">click here</button>
-    <script>
-        // Action when "Yes" is clicked
-        document.getElementById("yesButton").addEventListener("click", function() {
-            document.write("       🎁");
-        })
-        // Function to move the "No" button to a random position when hovered, without overlapping the "Yes" button
-        document.getElementById("noButton").addEventListener("mouseover", function() {
-            const buttonNo = document.getElementById("noButton");
-            const buttonYes = document.getElementById("yesButton");
+  <h1>Knock knock?</h1>
+  <h2>Do you Love me?</h2>
 
-            let randomX, randomY;
+  <div class="btn-wrap">
+    <button id="yesButton">Yes</button>
+    <button id="noButton">No</button>
+  </div>
 
-            do {
-                randomX = Math.random() * (window.innerWidth - buttonNo.offsetWidth);
-                randomY = Math.random() * (window.innerHeight - buttonNo.offsetHeight);
-            } while (isOverlapping(randomX, randomY, buttonNo, buttonYes));
+  <script>
+    const yes = document.getElementById('yesButton');
+    const no  = document.getElementById('noButton');
 
-            buttonNo.style.left = randomX + "px";
-            buttonNo.style.top = randomY + "px";
-        });
+    // When Yes is clicked
+    yes.addEventListener('click', () => {
+      document.body.innerHTML = "<h1 style='color:white;text-align:center;'>I already knew ❤️</h1>";
+    });
 
-        // Function to check if the "No" button would overlap with the "Yes" button
-        function isOverlapping(x, y, buttonNo, buttonYes) {
-            const noRect = {
-                left: x,
-                top: y,
-                right: x + buttonNo.offsetWidth,
-                bottom: y + buttonNo.offsetHeight
-            };
+    // Make "No" dodge if the mouse gets too close
+    document.addEventListener('mousemove', e => {
+      const noRect = no.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
 
-            const yesRect = buttonYes.getBoundingClientRect();
+      const buffer = 80; // distance at which it starts dodging
 
-            const isOverlap = !(noRect.right < yesRect.left || 
-                                noRect.left > yesRect.right || 
-                                noRect.bottom < yesRect.top || 
-                                noRect.top > yesRect.bottom);
-            return isOverlap;
-        }
-    </script>
+      const tooClose =
+        mouseX > noRect.left - buffer &&
+        mouseX < noRect.right + buffer &&
+        mouseY > noRect.top - buffer &&
+        mouseY < noRect.bottom + buffer;
+
+      if (tooClose) moveNoButton();
+    });
+
+    function moveNoButton() {
+      const yesRect = yes.getBoundingClientRect();
+      const noRect = no.getBoundingClientRect();
+
+      const noW = noRect.width;
+      const noH = noRect.height;
+      const margin = 20;
+
+      // Convert to fixed for free movement
+      if (no.style.position !== 'fixed') {
+        no.style.position = 'fixed';
+        no.style.left = noRect.left + "px";
+        no.style.top  = noRect.top + "px";
+        no.style.transform = "none";
+      }
+
+      let rx, ry, tries = 0;
+      do {
+        rx = Math.random() * (window.innerWidth - noW - margin*2) + margin;
+        ry = Math.random() * (window.innerHeight - noH - margin*2) + margin;
+        tries++;
+        if (tries > 200) break;
+      } while (isOverlap(rx, ry, noW, noH, yesRect));
+
+      no.style.left = rx + "px";
+      no.style.top  = ry + "px";
+    }
+
+    function isOverlap(x, y, w, h, yesRect) {
+      return !(x + w < yesRect.left ||
+               x > yesRect.right ||
+               y + h < yesRect.top ||
+               y > yesRect.bottom);
+    }
+  </script>
 
 </body>
 </html>
